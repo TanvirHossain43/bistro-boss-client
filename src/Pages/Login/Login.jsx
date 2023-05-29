@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
@@ -9,6 +9,10 @@ const Login = () => {
     // const captchaRef = useRef(null)
     const [disabled, setDisabled] = useState(true)
     const { signIn } = useContext(AuthContext)
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
         loadCaptchaEnginge(6)
@@ -32,7 +36,8 @@ const Login = () => {
                     hideClass: {
                         popup: 'animate__animated animate__fadeOutUp'
                     }
-                })
+                });
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.log(error)
@@ -81,8 +86,8 @@ const Login = () => {
                                     <LoadCanvasTemplate></LoadCanvasTemplate>
                                 </label>
 
-                                <input onBlur={handleValidateCaptcha}  type="text" placeholder="Type the captcha" className="input input-bordered" name="" />
-                                <button  className="btn btn-outline btn-xs mt-3">Validate</button>
+                                <input onBlur={handleValidateCaptcha} type="text" placeholder="Type the captcha" className="input input-bordered" name="" />
+                                <button className="btn btn-outline btn-xs mt-3">Validate</button>
 
                             </div>
                             <div className="form-control mt-6">

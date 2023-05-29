@@ -19,6 +19,7 @@ const NavBar = () => {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/menu">Our menu</Link></li>
         <li><Link to="/order/salad">Order Food</Link></li>
+        <li><Link to="/Secret">Secret</Link></li>
 
         {
             user ? <>
@@ -51,8 +52,10 @@ const NavBar = () => {
                         {options}
                     </ul>
                 </div>
-                <div className="navbar-end">
-                    <a className="btn">Get started</a>
+                <div className="avatar navbar-end">
+                    <div className="w-16 rounded-full">
+                        <img src={user?.photoURL} title={user?.displayName} />
+                    </div>
                 </div>
             </div>
         </div>
